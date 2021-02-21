@@ -135,7 +135,6 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
     final static String TEXT_BOTTOM_TITLE = ("24-ה  תסנכל  תיזכרמה  תוריחבה  תדעו");
 
 
-    String barcode = "1234567890";
 
 
     public void workLabel(){
@@ -149,21 +148,68 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
                 //olives * * X Y
                 +"EG 2 50 10 330 "+ EG_LEFT_OLIVE +"\n"
                 +"EG 2 50 550 330 "+ EG_RIGHT_OLIVE +"\n"
-                +"TEXT SWISIL22.CPF 0 52 336 "+ TEXT_BOTTOM_TITLE +"\n"
-                +"TEXT SWISIL22.CPF 0 50 336 "+ TEXT_BOTTOM_TITLE +"\n"
+                +"TEXT SWISIL22.CPF 0 52 337 "+ TEXT_BOTTOM_TITLE +"\n"
+                +"TEXT SWISIL22.CPF 0 50 337 "+ TEXT_BOTTOM_TITLE +"\n"
+
+
 
 
 
 
                 //barcode
-                +"TEXT SWISIL18.CPF 0 41 95 "+barcode+"\n"
-                +"VBARCODE 128 1 2 120 50 305 "+barcode+"\r\n"
+                +"TEXT SWISIL18.CPF 0 31 95 "+barcode+"\n"
+                +"VBARCODE 128 1 2 120 40 305 "+barcode+"\r\n"
+
+                //lines
+                +getLines()
+
+
 
                 //footer
                 +"PRINT\r\n";
         Log.e("cpcl",cpcl);
         transmitCPCL(cpcl);
     }
+
+    String barcode = "1234567890";
+
+    String id = "211717459";
+    String surname = "בורטפ";
+    String firstname = "םות";
+    String maidenname = "פטרובר";
+    String birthdate = "21/2/2000";
+
+    String regioncode = "001";
+    String votingbooth = "003";
+
+
+    public String getLines(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("TEXT SWISIL18.CPF 0 508 80 "+ ":.ז.ת" +"\n");
+        builder.append("TEXT SWISIL18.CPF 0 509 80 "+ ":.ז.ת" +"\n");
+
+
+
+
+
+
+
+        builder.append("PATTERN 106"+"\n");
+        //cmd, start x, start y, end x, end y, height?
+        builder.append("LINE 195 115 556 115 3"+"\n");
+
+
+        builder.append("LINE 195 305 351 305 3"+"\n");
+        builder.append("LINE 400 305 556 305 3"+"\n");
+//        builder.append("LINE 195 305 556 305 3"+"\n"); combined two lines
+//        165 total length of both halves
+
+
+
+        return builder.toString();
+    }
+
+
 
 
     //endregion
