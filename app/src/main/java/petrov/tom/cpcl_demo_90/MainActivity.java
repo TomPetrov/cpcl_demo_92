@@ -148,11 +148,11 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
                 //olives * * X Y
                 +"EG 2 50 10 330 "+ EG_LEFT_OLIVE +"\n"
                 +"EG 2 50 550 330 "+ EG_RIGHT_OLIVE +"\n"
-//                +"TEXT SWISIL22.CPF 0 52 337 "+ TEXT_BOTTOM_TITLE +"\n"
-//                +"TEXT SWISIL22.CPF 0 50 337 "+ TEXT_BOTTOM_TITLE +"\n"
+                +"TEXT SWISIL22.CPF 0 52 337 "+ TEXT_BOTTOM_TITLE +"\n"
+                +"TEXT SWISIL22.CPF 0 50 337 "+ TEXT_BOTTOM_TITLE +"\n"
 
-                +"TEXT SWISIL22.CPF 0 51 335 "+ TEXT_BOTTOM_TITLE +"\n"
-                +"TEXT SWISIL22.CPF 0 51 339 "+ TEXT_BOTTOM_TITLE +"\n"
+//                +"TEXT SWISIL22.CPF 0 51 335 "+ TEXT_BOTTOM_TITLE +"\n"
+//                +"TEXT SWISIL22.CPF 0 51 339 "+ TEXT_BOTTOM_TITLE +"\n"
 
 
 
