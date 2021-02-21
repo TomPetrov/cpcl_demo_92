@@ -157,8 +157,8 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
 
 
                 //barcode
-                +"TEXT SWISIL18.CPF 0 31 95 "+barcode+"\n"
-                +"VBARCODE 128 1 2 120 40 305 "+barcode+"\r\n"
+                +"TEXT SWISIL18.CPF 0 21 95 "+barcode+"\n"
+                +"VBARCODE 128 1 2 120 30 305 "+barcode+"\r\n"
 
                 //lines
                 +getLines()
@@ -176,7 +176,7 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
     String id = "211717459";
     String surname = "בורטפ";
     String firstname = "םות";
-    String maidenname = "פטרובר";
+    String maidenname = "";
     String birthdate = "21/2/2000";
 
     String regioncode = "001";
@@ -184,23 +184,68 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
 
 
     public String getLines(){
+        int stringYPosStart = 86;
+        final int stringYPosIncrement = 40;
+
+        int stringYpos = stringYPosStart;
         StringBuilder builder = new StringBuilder();
-        builder.append("TEXT SWISIL18.CPF 0 508 80 "+ ":.ז.ת" +"\n");
-        builder.append("TEXT SWISIL18.CPF 0 509 80 "+ ":.ז.ת" +"\n");
+
+        builder.append("TEXT SWISIL18.CPF 0 495 "+stringYpos+" "+ ":.ז.ת" +"\n");
+        builder.append("TEXT SWISIL18.CPF 0 494 "+stringYpos+" "+ ":.ז.ת" +"\n");
+        builder.append("TEXT SWISIL18.CPF 0 184 "+stringYpos+" "+ id +"\n");
+        stringYpos+=stringYPosIncrement;
+
+        builder.append("TEXT SWISIL18.CPF 0 423 "+stringYpos+" "+ ":החפשמ םש" +"\n");
+        builder.append("TEXT SWISIL18.CPF 0 422 "+stringYpos+" "+ ":החפשמ םש" +"\n");
+        builder.append("TEXT SWISIL18.CPF 0 184 "+stringYpos+" "+ surname +"\n");
+        stringYpos+=stringYPosIncrement;
+
+        if(maidenname!=null && !maidenname.isEmpty()){
+            builder.append("TEXT SWISIL18.CPF 0 437 "+stringYpos+" "+ ":םירוענ םש" +"\n");
+            builder.append("TEXT SWISIL18.CPF 0 436 "+stringYpos+" "+ ":םירוענ םש" +"\n");
+            builder.append("TEXT SWISIL18.CPF 0 184 "+stringYpos+" "+ maidenname +"\n");
+            stringYpos+=stringYPosIncrement;
+        }
+
+        builder.append("TEXT SWISIL18.CPF 0 451 "+stringYpos+" "+ ":יטרפ םש" +"\n");
+        builder.append("TEXT SWISIL18.CPF 0 450 "+stringYpos+" "+ ":יטרפ םש" +"\n");
+        builder.append("TEXT SWISIL18.CPF 0 184 "+stringYpos+" "+ firstname +"\n");
+        stringYpos+=stringYPosIncrement;
+
+        builder.append("TEXT SWISIL18.CPF 0 429 "+stringYpos+" "+ ":הדיל ךיראת" +"\n");
+        builder.append("TEXT SWISIL18.CPF 0 428 "+stringYpos+" "+ ":הדיל ךיראת" +"\n");
+        builder.append("TEXT SWISIL18.CPF 0 184 "+stringYpos+" "+ birthdate +"\n");
+        stringYpos+=stringYPosIncrement;
 
 
+        //voting booth and region code
 
 
+        if(maidenname==null || maidenname.isEmpty()){stringYpos+=stringYPosIncrement;}
+        builder.append("TEXT SWISIL18.CPF 0 253 "+stringYpos+" "+ ":יפלק .סמ" +"\n");
+        builder.append("TEXT SWISIL18.CPF 0 252 "+stringYpos+" "+ ":יפלק .סמ" +"\n");
+        builder.append("TEXT SWISIL18.CPF 0 385 "+stringYpos+" "+ regioncode +"\n");
+
+
+        builder.append("TEXT SWISIL18.CPF 0 457 "+stringYpos+" "+ ":בושי דוק" +"\n");
+        builder.append("TEXT SWISIL18.CPF 0 456 "+stringYpos+" "+ ":בושי דוק" +"\n");
+        builder.append("TEXT SWISIL18.CPF 0 183 "+stringYpos+" "+ votingbooth +"\n");
 
 
 
         builder.append("PATTERN 106"+"\n");
         //cmd, start x, start y, end x, end y, height?
-        builder.append("LINE 195 115 556 115 3"+"\n");
+        builder.append("LINE 180 115 541 115 3"+"\n");
+        builder.append("LINE 180 155 541 155 3"+"\n");
+        builder.append("LINE 180 195 541 195 3"+"\n");
+        builder.append("LINE 180 235 541 235 3"+"\n");
+
+        if(maidenname!=null && !maidenname.isEmpty())
+        builder.append("LINE 180 275 541 275 3"+"\n");
 
 
-        builder.append("LINE 195 305 351 305 3"+"\n");
-        builder.append("LINE 400 305 556 305 3"+"\n");
+        builder.append("LINE 180 315 346 315 3"+"\n");
+        builder.append("LINE 385 315 541 315 3"+"\n");
 //        builder.append("LINE 195 305 556 305 3"+"\n"); combined two lines
 //        165 total length of both halves
 
