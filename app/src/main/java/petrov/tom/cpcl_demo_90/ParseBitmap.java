@@ -2,7 +2,7 @@ package petrov.tom.cpcl_demo_90;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.Log;
-
+/**tompe@mda.org.il 21/2/2020*/
 public class ParseBitmap {
 
     private static final String TAG = "ParseBitmap";

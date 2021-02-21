@@ -29,6 +29,7 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
         //workBitmap(getCompressedBitmapFromMemory());
     }
 
+    /**tompe@mda.org.il 21/2/2020*/
 
     //region connection
     final static String macAddress="a4:da:32:83:d7:47";
