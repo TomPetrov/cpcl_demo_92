@@ -30,7 +30,7 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
         workLabelZPL();
     }
 
-    /**tompe@mda.org.il 21/2/2020*/
+    /**tompe@mda.org.il 21/2/2020 , support for ZPL printer ZQ520 & CPCL printer ZQ220*/
 
     //region connection
     final static String macAddressZQ220="a4:da:32:83:d7:47";
@@ -283,7 +283,7 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
     //endregion
 
     //region label zpl zq520
-    String staticGraphics = "\u0010CT~~CD,~CC^~CT~\n" +
+    final String staticGraphics = "\u0010CT~~CD,~CC^~CT~\n" +
 //            "^XA~TA000~JSN^LT0^MNW^MTD^PON^PMN^LH0,0^JMA^PR5,5~SD10^JUS^LRN^CI0^XZ\n" +
 
             "^XA\n" +
@@ -311,14 +311,14 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
             "eJxjYBgFo2AUjIJRMApGAamAS4urq2nRghUrtMhhMDDw2cv3H3/88cefOnIYlOsHAFiHa/E=:E058\n" +
             "^FO160,192^GFA,02048,02048,00064,:Z64:\n" +
             "eJxjYBgFo2DoAi4trq6mRQtWrNAih8HAwGcv33/88ccff+rIYVCufxSMglEwCgYKAAAtAWvx:D83C\n" +
-            "^FO448,288^GFA,00896,00896,00028,:Z64:\n" +
-            "eJxjYBgyYNGCFSu0tLi6mlAZYLnHH3/8qbOX7z+OyiAoNwpGwYACABZfKyk=:5A82\n" +
+            "^FO416,288^GFA,01024,01024,00032,:Z64:\n" +
+            "eJxjYBhooLFCS4urq2nRghWYDJC8xZ86e/n+448//sBkECM/CkbBKMAFAJEtMGk=:A0B0\n" +
             "^FO160,32^GFA,04096,04096,00064,:Z64:\n" +
             "eJxjYBgFo2AUjIJRMApGwVADXFpcXU2LFqxYoUUOg4GBz16+//jjjz/+1JHDoFz/KBgFo2AUjIJRMAroDwAX/Wvx:DFB1\n" +
-            "^FO160,288^GFA,00768,00768,00024,:Z64:\n" +
-            "eJxjYKAt4NLi6mpatGDFCi0UxgI+e/n+448//vhTh8J4gEucxs4cBSMUAACU3CcP:8941\n" +
+            "^FO160,288^GFA,00896,00896,00028,:Z64:\n" +
+            "eJxjYKAv4NLi6mpatGDFCi1MBp+9fP/xxx9//KnDZOCTo7MXRsEooBoAAEbwL/c=:6116\n" +
             "^BY2,3,88^FT140,275^BCB,,Y,Y\n" +
-            "^FD>;"+barcode+"^FS\n" +
+            "^FD>;"+barcode+"^FS"+
             "^PQ1,0,1,Y";
     String closeLabel = "^XZ\n";
 
@@ -327,78 +327,61 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
 
                 // {x,y}
                 + "^FT68,359^A7N,40,47 ^FB800,0,0,L,0^FD 24-ה תסנכל תיזכרמה תוריחבה תדעו^FS" // footer text
-                //+ getZPLLines()
+                + getZPLLines()
                 + closeLabel;
         Log.e("cpcl",zpl);
         transmitZPL(zpl);
     }
     public String getZPLLines(){
-        int stringYPosStart = 86;
-        final int stringYPosIncrement = 40;
+        int stringYPosStart = 58;
+        final int stringYPosIncrement = 46;
 
         int stringYpos = stringYPosStart;
         StringBuilder builder = new StringBuilder();
 
-        builder.append("TEXT SWISIL18.CPF 0 495 "+stringYpos+" "+ ":.ז.ת" +"\n");
-        builder.append("TEXT SWISIL18.CPF 0 494 "+stringYpos+" "+ ":.ז.ת" +"\n");
-        builder.append("TEXT SWISIL18.CPF 0 184 "+stringYpos+" "+ id +"\n");
+        builder.append("^FT164,"+stringYpos+"^A7N,38,38 ^FB490,0,0,R,0^FD:.ז.ת^FS" +"\n");
+        builder.append("^FT163,"+stringYpos+"^A7N,38,38 ^FB490,0,0,R,0^FD:.ז.ת^FS" +"\n");
+        builder.append("^FT164,"+stringYpos+"^A7N,38,38 ^FB490,0,0,L,0^FD"+id+"^FS" +"\n");
         stringYpos+=stringYPosIncrement;
 
-        builder.append("TEXT SWISIL18.CPF 0 423 "+stringYpos+" "+ ":החפשמ םש" +"\n");
-        builder.append("TEXT SWISIL18.CPF 0 422 "+stringYpos+" "+ ":החפשמ םש" +"\n");
-        builder.append("TEXT SWISIL18.CPF 0 184 "+stringYpos+" "+ surname +"\n");
+        builder.append("^FT164,"+stringYpos+"^A7N,38,38 ^FB490,0,0,R,0^FD:החפשמ םש^FS" +"\n");
+        builder.append("^FT163,"+stringYpos+"^A7N,38,38 ^FB490,0,0,R,0^FD:החפשמ םש^FS" +"\n");
+        builder.append("^FT164,"+stringYpos+"^A7N,38,38 ^FB490,0,0,L,0^FD"+surname+"^FS" +"\n");
         stringYpos+=stringYPosIncrement;
 
         if(maidenname!=null && !maidenname.isEmpty()){
-            builder.append("TEXT SWISIL18.CPF 0 437 "+stringYpos+" "+ ":םירוענ םש" +"\n");
-            builder.append("TEXT SWISIL18.CPF 0 436 "+stringYpos+" "+ ":םירוענ םש" +"\n");
-            builder.append("TEXT SWISIL18.CPF 0 184 "+stringYpos+" "+ maidenname +"\n");
+//            builder.append("TEXT SWISIL18.CPF 0 437 "+stringYpos+" "+ ":םירוענ םש" +"\n");
+//            builder.append("TEXT SWISIL18.CPF 0 436 "+stringYpos+" "+ ":םירוענ םש" +"\n");
+//            builder.append("TEXT SWISIL18.CPF 0 184 "+stringYpos+" "+ maidenname +"\n");
             stringYpos+=stringYPosIncrement;
         }
 
-        builder.append("TEXT SWISIL18.CPF 0 451 "+stringYpos+" "+ ":יטרפ םש" +"\n");
-        builder.append("TEXT SWISIL18.CPF 0 450 "+stringYpos+" "+ ":יטרפ םש" +"\n");
-        builder.append("TEXT SWISIL18.CPF 0 184 "+stringYpos+" "+ firstname +"\n");
+
+        builder.append("^FT164,"+stringYpos+"^A7N,38,38 ^FB490,0,0,R,0^FD:יטרפ םש^FS" +"\n");
+        builder.append("^FT163,"+stringYpos+"^A7N,38,38 ^FB490,0,0,R,0^FD:יטרפ םש^FS" +"\n");
+        builder.append("^FT164,"+stringYpos+"^A7N,38,38 ^FB490,0,0,L,0^FD"+firstname+"^FS" +"\n");
         stringYpos+=stringYPosIncrement;
 
-        builder.append("TEXT SWISIL18.CPF 0 429 "+stringYpos+" "+ ":הדיל ךיראת" +"\n");
-        builder.append("TEXT SWISIL18.CPF 0 428 "+stringYpos+" "+ ":הדיל ךיראת" +"\n");
-        builder.append("TEXT SWISIL18.CPF 0 184 "+stringYpos+" "+ birthdate +"\n");
+
+
+        builder.append("^FT164,"+stringYpos+"^A7N,38,38 ^FB490,0,0,R,0^FD:הדיל ךיראת^FS" +"\n");
+        builder.append("^FT163,"+stringYpos+"^A7N,38,38 ^FB490,0,0,R,0^FD:הדיל ךיראת^FS" +"\n");
+        builder.append("^FT164,"+stringYpos+"^A7N,38,38 ^FB490,0,0,L,0^FD"+birthdate+"^FS" +"\n");
         stringYpos+=stringYPosIncrement;
 
 
         //voting booth and region code
-
-
-        if(maidenname==null || maidenname.isEmpty()){stringYpos+=stringYPosIncrement;}
-        builder.append("TEXT SWISIL18.CPF 0 253 "+stringYpos+" "+ ":יפלק .סמ" +"\n");
-        builder.append("TEXT SWISIL18.CPF 0 252 "+stringYpos+" "+ ":יפלק .סמ" +"\n");
-        builder.append("TEXT SWISIL18.CPF 0 385 "+stringYpos+" "+ regioncode +"\n");
-
-
-        builder.append("TEXT SWISIL18.CPF 0 457 "+stringYpos+" "+ ":בושי דוק" +"\n");
-        builder.append("TEXT SWISIL18.CPF 0 456 "+stringYpos+" "+ ":בושי דוק" +"\n");
-        builder.append("TEXT SWISIL18.CPF 0 183 "+stringYpos+" "+ votingbooth +"\n");
+        if(maidenname==null || maidenname.isEmpty()){ stringYpos+=stringYPosIncrement; }
 
 
 
-        builder.append("PATTERN 106"+"\n");
-        //cmd, start x, start y, end x, end y, height?
-        builder.append("LINE 180 115 541 115 3"+"\n");
-        builder.append("LINE 180 155 541 155 3"+"\n");
-        builder.append("LINE 180 195 541 195 3"+"\n");
-        builder.append("LINE 180 235 541 235 3"+"\n");
+        builder.append("^FT164,"+stringYpos+"^A7N,38,38 ^FB220,0,0,R,0^FD:יפלק .סמ^FS" +"\n");
+        builder.append("^FT163,"+stringYpos+"^A7N,38,38 ^FB220,0,0,R,0^FD:יפלק .סמ^FS" +"\n");
+        builder.append("^FT164,"+stringYpos+"^A7N,38,38 ^FB220,0,0,L,0^FD"+votingbooth+"^FS" +"\n");
 
-        if(maidenname!=null && !maidenname.isEmpty())
-            builder.append("LINE 180 275 541 275 3"+"\n");
-
-
-        builder.append("LINE 180 315 346 315 3"+"\n");
-        builder.append("LINE 385 315 541 315 3"+"\n");
-//        builder.append("LINE 195 305 556 305 3"+"\n"); combined two lines
-//        165 total length of both halves
-
-
+        builder.append("^FT434,"+stringYpos+"^A7N,38,38 ^FB220,0,0,R,0^FD:בושי דוק^FS" +"\n");
+        builder.append("^FT433,"+stringYpos+"^A7N,38,38 ^FB220,0,0,R,0^FD:בושי דוק^FS" +"\n");
+        builder.append("^FT434,"+stringYpos+"^A7N,38,38 ^FB220,0,0,L,0^FD"+regioncode+"^FS" +"\n");
 
         return builder.toString();
     }
