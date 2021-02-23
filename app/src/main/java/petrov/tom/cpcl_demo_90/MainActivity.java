@@ -36,9 +36,9 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
     final static String macAddressZQ220="a4:da:32:83:d7:47";
     final static String macAddressZQ520="c4:64:e3:93:5d:ea";
 
-    final static String macAddress=macAddressZQ520;
+    static String macAddress;
     protected ZebraPrinter printer;
-    private void transmitCPCL(String cpcl) { try {
+    private void transmitCPCL(String cpcl) {         macAddress=macAddressZQ220; try {
 
         // Establish connection
         Connection thePrinterConn = new BluetoothConnection(macAddress);
@@ -57,7 +57,8 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
         thePrinterConn.close();
 
     } catch (Exception e) { e.printStackTrace(); } }
-    private void transmitZPL(String zpl) { try {
+    private void transmitZPL(String zpl) {        macAddress=macAddressZQ520;
+        try {
 
         // Establish connection
         Connection thePrinterConn = new BluetoothConnection(macAddress);
@@ -306,17 +307,17 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
             "^FO768,288^GFA,00384,00384,00004,:Z64:\n" +
             "eJytkDEKwkAURGezKhJFE7Cxka1SpLC23OBFPIq9YC1Wqa2srSysPIPFliFewodZwV4XhmH4bz6flf79hl/eQws0Q0XMy86Twsnidh9kbhvZUMtU+ImceekcpPwq7bbSFC6Fl+vmjyDb4JWX+fAX2Bx2hMbsf/P0njXO3iMd9ictvPeyZewd4OeAabz7Tl7jZbx7hTLk4pyzDLUBWJ84+e23XsNLIn8=:04C3\n" +
             "^FO160,96^GFA,02048,02048,00064,:Z64:\n" +
-            "eJxjYBgFo2AUkAu4tLi6mhYtWLFCixwGAwOfvXz/8ccff/ypI4dBuf5RMApGwcgFADHXa/E=:9622\n" +
+            "eJxjYBgFo2AUkAt4Pp+3IR9Rrn8UjIJRMArIBQAMolGv:330A\n" +
             "^FO160,128^GFA,02048,02048,00064,:Z64:\n" +
-            "eJxjYBgFo2AUjIJRMApGAamAS4urq2nRghUrtMhhMDDw2cv3H3/88cefOnIYlOsHAFiHa/E=:E058\n" +
+            "eJxjYBgFo2AUjIJRMApGAamA5/N5G/IR5fopBQBBeVGv:6691\n" +
             "^FO160,192^GFA,02048,02048,00064,:Z64:\n" +
-            "eJxjYBgFo2DoAi4trq6mRQtWrNAih8HAwGcv33/88ccff+rIYVCufxSMglEwCgYKAAAtAWvx:D83C\n" +
+            "eJxjYBgFo2DkAp7P523IR5TrHwWjYBSMgoECAHlOUa8=:CF6D\n" +
             "^FO416,288^GFA,01024,01024,00032,:Z64:\n" +
-            "eJxjYBhooLFCS4urq2nRghWYDJC8xZ86e/n+448//sBkECM/CkbBKMAFAJEtMGk=:A0B0\n" +
+            "eJxjYBjqgOfzeRtciBj5UTAKRi4AAHM+I/U=:9A98\n" +
             "^FO160,32^GFA,04096,04096,00064,:Z64:\n" +
-            "eJxjYBgFo2AUjIJRMApGwVADXFpcXU2LFqxYoUUOg4GBz16+//jjjz/+1JHDoFz/KBgFo2AUjIJRMAroDwAX/Wvx:DFB1\n" +
+            "eJztyzENADAIAEEEIKn+V8RgAA9lIrnLrx8BAFyTXe+//Q8A3DMGZFGv:2F0B\n" +
             "^FO160,288^GFA,00896,00896,00028,:Z64:\n" +
-            "eJxjYKAv4NLi6mpatGDFCi1MBp+9fP/xxx9//KnDZOCTo7MXRsEooBoAAEbwL/c=:6116\n" +
+            "eJxjYBg8gOfzeRtcCJ/cQLt7FIwCcgEAVYgj9Q==:06CC\n" +
             "^BY2,3,88^FT140,275^BCB,,Y,Y\n" +
             "^FD>;"+barcode+"^FS"+
             "^PQ1,0,1,Y";
@@ -327,6 +328,8 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
 
                 // {x,y}
                 + "^FT68,359^A7N,40,47 ^FB800,0,0,L,0^FD 24-ה תסנכל תיזכרמה תוריחבה תדעו^FS" // footer text
+//                + "^FT69,359^A7N,40,47 ^FB800,0,0,L,0^FD 24-ה תסנכל תיזכרמה תוריחבה תדעו^FS" // footer text
+
                 + getZPLLines()
                 + closeLabel;
         Log.e("cpcl",zpl);
@@ -387,7 +390,9 @@ import com.zebra.sdk.printer.ZebraPrinterFactory; public class MainActivity exte
     }
 
 
+
     //endregion
+
 
 
 }
